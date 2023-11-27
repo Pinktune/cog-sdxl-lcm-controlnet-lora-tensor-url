@@ -84,11 +84,14 @@ class WeightsManager:
             unet.set_attn_processor(unet_lora_attn_procs)
             unet.load_state_dict(tensors, strict=False)
 
+        embeddings_file_path = os.path.join(local_weights_cache, "embeddings.pti")
+        if not os.path.exists(embeddings_file_path):
+            return
         # load text
         handler = TokenEmbeddingsHandler(
             [pipe.text_encoder, pipe.text_encoder_2], [pipe.tokenizer, pipe.tokenizer_2]
         )
-        handler.load_embeddings(os.path.join(local_weights_cache, "embeddings.pti"))
+        handler.load_embeddings(embeddings_file_path)
 
         # load params
         with open(os.path.join(local_weights_cache, "special_params.json"), "r") as f:

@@ -117,8 +117,11 @@ class WeightsDownloadCache:
         st = time.time()
         # maybe retry with the real url if this doesn't work
         try:
-            output = subprocess.check_output(["pget", "-x", url, dest], close_fds=True)
-            print(output)
+            if url.endswith('.tar'):
+                output = subprocess.check_output(["pget", "-x", url, dest], close_fds=True) #Extract archive after download
+            else:
+                output = subprocess.check_output(["wget", url, dest], close_fds=True)
+            print('de11 downloaded to',output)
         except subprocess.CalledProcessError as e:
             # If download fails, clean up and re-raise exception
             print(e.output)

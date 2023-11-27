@@ -238,7 +238,7 @@ class Predictor(BasePredictor):
             default=0.6,
         ),
         lora_weights: str = Input(
-            description="Replicate LoRA weights to use. Leave blank to use the default weights.",
+            description="LoRA weights url to use. Accept .safetensors downloadable link or Replicate .tar url. Leave blank to use the default weights.",
             default=None,
         ),
         disable_safety_checker: bool = Input(
